@@ -44,8 +44,7 @@ totem {
   crypto_hash:                         <%= @crypto_hash %>
   crypto_cipher:                       <%= @crypto_cipher %>
 <% else -%>
-  crypto_hash:                         none
-  crypto_cipher:                       none
+  secauth:                             off
 <% end -%>
 <% if @threads -%>
   threads:                             <%= @threads %>
@@ -54,7 +53,7 @@ totem {
   transport:                           udpu
 <% Array(@unicast_addresses.first).each_index do |interface| -%>
   interface {
-<% if not @set_votequorum -%>
+<% if @set_votequorum -%>
 <% Array(Array(@unicast_addresses.map{|x| Array(x).flatten}).transpose[interface]).each do |addr| -%>
     member {
       memberaddr: <%= addr %>
